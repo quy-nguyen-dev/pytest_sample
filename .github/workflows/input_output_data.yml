@@ -81,7 +81,7 @@ jobs:
       #zip -r sw-abcd.zip . -x "*.git*" -x "*.github*"
       run: |
         zip -r sw-abcd.zip fibonacci/
-        ls -l artifacts.zip
+        ls -l sw-abcd.zip
 
     - name: Upload Artifacts1
       uses: actions/upload-artifact@v4
@@ -91,6 +91,19 @@ jobs:
         compression-level: 6 # default
         if-no-files-found: ignore # default warn
 
+  cd-process:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: Get bulid artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: my-demo-artifacts
+        path: sw-abcd.zip
+    - name: Unzip
+      run: |
+        unzip sw-abcd.zip
+        ls -rlta
 # - name: Upload Artifacts2
 #   uses: actions/upload-artifact@v4
 #   with:
