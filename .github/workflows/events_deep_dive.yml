@@ -1,0 +1,45 @@
+# https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
+
+name: Events Demo 1
+
+on:
+  workflow_dispatch:
+    inputs:
+      message:
+        description: 'Message'
+        required: true
+        default: 'Hello World!'
+  # good practice only test main branch
+  push:
+    #https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#push
+    branches: [main]
+    paths-ignore:
+      - '**.md'
+      - '**.yml'
+      - '**.yaml'
+      - '**.json'
+      - '**.txt'
+      - '**.sh'
+      - '.github/workflows/*'
+      - '.gitignore'
+      - 'LICENSE'
+      - 'README.md'
+      - 'experiences'
+  pull_request:
+    # [opened, reopened, closed] are default
+    # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request
+    types: [opened, reopened, closed]
+    branches:
+    - 'main'
+    - 'dev/qn-**'  # dev/qn-nand, dev/qn-ram, dev/qn-rom
+    - 'feature/**' # feature/new, feature/old/button
+    - 'bugfix/**'
+    - 'release/**'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      # Add more steps as needed
+

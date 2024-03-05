@@ -1,4 +1,4 @@
-name: Python application test with pytest
+name: Practice Artifact Cache Input
 
 on: workflow_dispatch
 #   push:
@@ -64,6 +64,9 @@ jobs:
         ref: ${{ github.event.inputs.branch }}
         fetch-depth: 0
 
+    - name: Install zip
+      run: sudo apt-get install zip
+
     - name: Configure Git
       run: |
         git config --global user.email "nhonquy@gmail.com"
@@ -74,23 +77,23 @@ jobs:
       with:
         python-version: '3.8'
 
-    - name: Install dependencies
+    - name: Generate Zip file
+      #zip -r sw-abcd.zip . -x "*.git*" -x "*.github*"
       run: |
-        python -m pip install --upgrade pip
-        pip install pytest pytest-cov pytest-html
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        zip -r sw-abcd.zip fibonacci/
+        ls -l artifacts.zip
 
-    # ------------------------------------------------------------------------------------ #
-# - name: Upload HTML report
-#   uses: actions/upload-artifact@v2
+    - name: Upload Artifacts1
+      uses: actions/upload-artifact@v4
+      with:
+        name: my-demo-artifacts
+        path: artifacts.zip
+        compression-level: 6 # default
+        if-no-files-found: ignore # default warn
+
+# - name: Upload Artifacts2
+#   uses: actions/upload-artifact@v4
 #   with:
-#     name: pytest-report
-#     path: ./reports/html/summary.html
-# - name: Upload coverage to Codecov
-#   uses: codecov/codecov-action@v4
-#   with:
-#     token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
-#     file: ./reports/coverage/coverage.xml # optional
-#     flags: unittests # optional
-#     name: codecov-umbrella # optional
-#     fail_ci_if_error: true # optional
+#     name: my-demo-artifacts2
+#     path: api/coronavstech/*
+#     compression-level: 9
