@@ -2,6 +2,7 @@
 name: First Workflow
 
 # Controls when the action will run. Triggers the workflow on push or pull request\
+# run manualy we use on:workflow_dispatch
 on: workflow_dispatch
 # on: 
 #     push:
@@ -17,5 +18,7 @@ jobs:
         - name: Print greeting
           run: echo "Hello, world!"
         - name: Print Good bye!
-          run: echo "Good bye!"
+          run: |
+            echo "First output"
+            echo "Second output"
 
