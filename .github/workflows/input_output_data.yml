@@ -103,7 +103,7 @@ jobs:
     - name: Unzip
       run: |
         ls -rlta
-    # unzip sw-abcd.zip
+        unzip ./sw-abcd.zip
 # - name: Upload Artifacts2
 #   uses: actions/upload-artifact@v4
 #   with:
