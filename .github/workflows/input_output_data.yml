@@ -87,7 +87,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: my-demo-artifacts
-        path: artifacts.zip
+        path: sw-abcd.zip
         compression-level: 6 # default
         if-no-files-found: ignore # default warn
 
